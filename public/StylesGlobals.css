@@ -1,0 +1,27 @@
+body{
+	background-color: white;
+	
+
+}
+.rectangulo{
+  width: 300px;
+  height: 150px;
+  background-color: green;
+}
+.image{
+  width: 300px;
+  height: 150px;
+  background-color: green;
+}
+
+.logo{
+	width: 150px;
+	height: 150px;
+
+}
+
+.Map{
+
+	width: 700px;
+	height: 300px;
+}
