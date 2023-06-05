@@ -36,8 +36,44 @@
 		    </div>
 		  </div>
 		</nav>
-		<br>
-	<div class="rectangulo border-0 ring-gray-600">Plag-e remote</div>
-	<img src="./images/graph.jpg" class="rectangulo" alt="Plag-e Logo"/> 
+		<br>	
+		<div class="ml-8 cardP flex flex-col items-center border border-gray-200 rounded-lg md:flex-row md:max-w-xl">
+			<img class="ml-4 rounded-full object-cover w-24 h-24 md:h-auto md:w-24" src="./images/OIG.jpg" alt="">
+			<div class="flex flex-col justify-between p-4 leading-normal">
+				<h5 class="mb-2 text-2xl font-bold tracking-tight text-white">Plag-e 1</h5>
+				<p class="mb-3 font-normal text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo dolor voluptatem sint provident aspernatur molestiae porro odit consequuntur quidem! Iusto perferendis unde aut facilis cumque rerum minima pariatur sed atque.</p>
+			
+			<div class="flex">
+				<div>
+					<canvas id="myChart"></canvas>
+				</div>
+				
+				<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+				
+				<script >
+					const ctx = document.getElementById('myChart');
+				
+					new Chart(ctx, {
+					type: 'bar',
+					data: {
+						labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+						datasets: [{
+						label: '# of Votes',
+						data: [12, 19, 3, 5, 2, 3],
+						borderWidth: 1
+						}]
+					},
+					options: {
+						scales: {
+						y: {
+							beginAtZero: true
+						}
+						}
+					}
+					});
+				</script>
+				</div>
+			</div>	
+		</div>
 </body>
 </html>

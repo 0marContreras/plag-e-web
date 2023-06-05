@@ -16,5 +16,8 @@
     "nodemon": "^2.0.22",
     "postcss": "^8.4.24",
     "tailwindcss": "^3.3.2"
+  },
+  "dependencies": {
+    "chart.js": "^4.3.0"
   }
 }

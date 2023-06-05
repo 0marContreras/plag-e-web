@@ -20,8 +20,14 @@ body{
 
 }
 
-.Map{
-
-	width: 700px;
-	height: 300px;
+.cardP{
+  background-color: #31C48D;
+  
 }
+
+.logoC{
+	width: 40px;
+	height: 40px;
+
+}
+
