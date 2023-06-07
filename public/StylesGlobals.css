@@ -9,8 +9,8 @@ body{
   background-color: green;
 }
 .image{
-  width: 300px;
-  height: 150px;
+  width: 350px;
+  height: 200px;
   background-color: green;
 }
 
@@ -30,4 +30,6 @@ body{
 	height: 40px;
 
 }
-
+.buttonB{
+  width: 350px;
+}
