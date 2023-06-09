@@ -5,6 +5,7 @@ const session = require('express-session');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const User = require('./models/user');
 const path = require("path");
+const cookieParser = require('cookie-parser');
 const port = 3000;
 
 // Configuración de Mongoose
@@ -55,6 +56,7 @@ const app = express();
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+app.use(cookieParser('secret-key')); // Configuración de cookie-parser con la clave secreta
 app.use(session({
   secret: 'secret-key',
   resave: false,
@@ -97,16 +99,16 @@ app.get('/auth/google', passport.authenticate('google', {
 app.get('/auth/google/callback', passport.authenticate('google', {
   failureRedirect: '/auth'
 }), (req, res) => {
-  // Guardar la sesión en una cookie
-  req.session.save(() => {
-    res.redirect('/home');
-  });
+  // Configurar la cookie con la sesión de Google
+  res.cookie('session', req.session.passport.user, { signed: true });
+  res.redirect('/home');
 });
 
 // Ruta de cierre de sesión
 app.get('/logout', (req, res) => {
-  req.logout();
-  req.session.destroy();
+  //req.logout();
+  //req.session.destroy();
+  res.clearCookie('session'); // Eliminar la cookie 'session'
   res.redirect('/');
 });
 
