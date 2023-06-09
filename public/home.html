@@ -6,6 +6,7 @@
 	<link rel="stylesheet" type="text/css" href="StylesGlobals.css">
 	<link rel="stylesheet" type="text/css" href="output.css">
 	<title>Home</title>
+
 </head>
 <body>
 		<nav class="bg-white border-gray-200 dark:bg-gray-900">
@@ -45,7 +46,7 @@
 			
 			<div class="flex">
 				<div>
-					<canvas id="myChart"></canvas>
+					<canvas id="myChart" class="ml-12 rounded-lg text-white " style="  background-color: #EDEDED;"></canvas>
 				</div>
 				
 				<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -53,19 +54,30 @@
 				<script >
 					const ctx = document.getElementById('myChart');
 					new Chart(ctx, {
-					type: 'bar',
+					type: 'line',
 					data: {
 						labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
 						datasets: [{
-						label: '# of Votes',
+						label: 'Bar Dataset',
 						data: [12, 19, 3, 5, 2, 3],
-						borderWidth: 1
+						borderWidth: 1,
+						borderColor: '',
+						backgroundColor: '#F0F3F4',
+						multiKeyBackground: '#34D24C'
 						}]
 					},
 					options: {
 						scales: {
-						y: {
-							beginAtZero: true
+							myScale: {
+       						 type: 'logarithmic',
+        						position: 'right', 
+				
+						x:{
+							grid: {
+								tickColor: '#FFFFFF'
+							}
+							
+						 }
 						}
 						}
 					}
