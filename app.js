@@ -75,7 +75,7 @@ app.get('/buy', (req, res) => {
 });
 
 app.get('/auth', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'auth.html'));
+  res.sendFile(path.join(__dirname, 'public', '/auth.html'));
 });
 
 app.get('/home', (req, res) => {
