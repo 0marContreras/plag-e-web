@@ -1,0 +1,40 @@
+body{
+	background-color: white;
+	
+
+}
+.rectangulo{
+  width: 300px;
+  height: 150px;
+  background-color: green;
+}
+.image{
+  width: 350px;
+  height: 200px;
+  background-color: green;
+}
+
+.logo{
+	width: 150px;
+	height: 150px;
+
+}
+
+.cardP{
+  background-color: #31C48D;
+  
+}
+
+.logoC{
+	width: 40px;
+	height: 40px;
+
+}
+.buttonB{
+  width: 350px;
+}
+
+.cardP2{
+  background-color: #31C48D;
+  
+}
