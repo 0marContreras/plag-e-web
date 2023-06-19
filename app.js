@@ -7,9 +7,10 @@ const User = require('./models/user');
 const path = require("path");
 const cookieParser = require('cookie-parser');
 const port = 3000;
+require('dotenv').config();
 
 // Configuración de Mongoose
-mongoose.connect('mongodb+srv://omarcontreras:Omar151003@omarcontreras.g6y4rxx.mongodb.net/plage', {
+mongoose.connect(process.env.DB_CONN, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
@@ -20,8 +21,8 @@ mongoose.connect('mongodb+srv://omarcontreras:Omar151003@omarcontreras.g6y4rxx.m
 
 // Configuración de la sesión y autenticación de Passport
 passport.use(new GoogleStrategy({
-    clientID: "298722206986-4jo87fbqtcffdl88t1qq1sa40b0o18os.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientID: process.env.GOOGLE_KEY,
+    clientSecret: process.env.GOOGLE_SECRET,
     callbackURL: '/auth/google/callback'
   },
   async (accessToken, refreshToken, profile, done) => {
@@ -33,7 +34,7 @@ passport.use(new GoogleStrategy({
 
     // Crear un nuevo usuario si no existe
     const newUser = new User({
-      googleId: profile.id,
+      Id: profile.id,
       displayName: profile.displayName
     });
     await newUser.save();
@@ -67,11 +68,11 @@ app.use(passport.session());
 
 // Rutas
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'public', '/index.html'));
 });
 
 app.get('/buy', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'buy.html'));
+  res.sendFile(path.join(__dirname, 'public', '/buy.html'));
 });
 
 app.get('/auth', (req, res) => {
@@ -79,15 +80,15 @@ app.get('/auth', (req, res) => {
 });
 
 app.get('/home', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'home.html'));
+  res.sendFile(path.join(__dirname, 'public', '/home.html'));
 });
 
 app.get('/map', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'map.html'));
+  res.sendFile(path.join(__dirname, 'public', '/map.html'));
 });
 
 app.get('/tutorials', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'tutorials.html'));
+  res.sendFile(path.join(__dirname, 'public', '/tutorials.html'));
 });
 
 // Ruta de inicio de sesión con Google
