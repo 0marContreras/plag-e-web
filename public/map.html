@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="StylesGlobals.css">
     <link rel="stylesheet" type="text/css" href="output.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
     <title>PLAG-E - Map</title>
 
 </head>
@@ -79,14 +82,24 @@
             </div>	
           </div>
           <br>	
-              <div>
-                <img src="./images/map.jpg" class="relative ml-64 mb-8 w-3/5 h-auto">
-              </div>
-            </div>
-        </div>
-       </div>    
-       
+
+          <center>
+            <div class="mb-8" id="map"></div>
+          </center>
+          
 
 
+       <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+       crossorigin=""></script>
+
+       <script>
+        var map = L.map('map').setView([28.661685, -106.040093 ], 13);
+        var marker = L.marker([28.661685, -106.040093]).addTo(map);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+       </script>
 </body>
-</html>
+</html>*

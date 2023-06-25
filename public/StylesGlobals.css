@@ -37,3 +37,5 @@ body{
 .cardP2{
   background-color: #31C48D;
 }
+
+#map { height: 600px; width: 600px; }

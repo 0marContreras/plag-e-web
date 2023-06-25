@@ -86,8 +86,6 @@ app.get('/', (req, res) => {
 
 // Ruta de cierre de sesión
 app.get('/logout', (req, res) => {
-  //req.logout();
-  //req.session.destroy();
   res.clearCookie('session'); // Eliminar la cookie 'session'
   res.redirect('/');
 });
