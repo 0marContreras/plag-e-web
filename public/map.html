@@ -87,19 +87,36 @@
             <div class="mb-8" id="map"></div>
           </center>
           
-
+          <script>
+          
+          </script>
 
        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
        crossorigin=""></script>
 
        <script>
-        var map = L.map('map').setView([28.661685, -106.040093 ], 13);
-        var marker = L.marker([28.661685, -106.040093]).addTo(map);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+          fetch('/map-data')
+              .then(response => response.json())
+              .then(data => {
+                // Acceder a los datos y realizar las acciones deseadas
+                var location = data;
+
+                const objx = JSON.parse(location.x);
+                const objy = JSON.parse(location.y);
+
+                  var map = L.map('map').setView([objx, objy ], 13);
+                  var marker = L.marker([objx, objy]).addTo(map);
+                  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                  maxZoom: 19,
+                  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                  }).addTo(map);
+
+              })
+              .catch(error => {
+                console.error(error);
+              });
+        
        </script>
 </body>
-</html>*
+</html>
