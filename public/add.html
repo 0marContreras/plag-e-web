@@ -23,7 +23,7 @@
             </div>
             <div class="mt-12 max-w-lg mx-auto">
                 <form
-                    
+                    id="addForm"
                 >
                     
                     <div>
@@ -31,9 +31,10 @@
                             Code
                         </label>
                         <input
-                            type="email"
+                            type="text"
                             required
                             class="w-full mt-2 px-3 py-2 text-gray-500 bg-transparent outline-none border focus:border-green-600 shadow-sm rounded-lg"
+                            id="code"
                         />
                     </div>
                     <div>
@@ -45,6 +46,7 @@
                                 type="text"
                                 required
                                 class="w-full pl-[0.6rem] pr-3 py-2 appearance-none bg-transparent mb-3 outline-none border focus:border-green-600 shadow-sm rounded-lg"
+                                id="rname"
                             />
                         </div>
                     </div>
@@ -57,5 +59,67 @@
             </div>
         </div>
     </main>
+
+  <script>
+    // Obtener el valor de la cookie de sesión
+    function getSessionUserId() {
+  const cookies = document.cookie.split(";"); // Obtener todas las cookies como un arreglo
+  for (let i = 0; i < cookies.length; i++) {
+    const cookie = cookies[i].trim();
+    if (cookie.startsWith("session=")) {
+      const cookieValue = cookie.substring("session=".length, cookie.length);
+      const decodedValue = decodeURIComponent(cookieValue);
+      const match = decodedValue.match(/^s:(.+?)\./);
+      if (match && match[1]) {
+        return match[1];
+      }
+      break;
+    }
+  }
+  return null; // Si no se encuentra la cookie de sesión o el userId
+}
+
+
+
+
+const addForm = document.getElementById("addForm");
+    addForm.addEventListener("submit", async (event) => {
+        event.preventDefault(); // Prevenir el envío del formulario por defecto
+
+        const codeInput = document.getElementById("code").value;
+        const nameInput = document.getElementById("rname").value;
+
+        const userId = getSessionUserId();
+        
+            const trimmedUserId = userId.substring(2);
+             // Eliminar el prefijo "j:"
+                const userIdObj = JSON.parse(trimmedUserId);
+                const id = userIdObj.id;
+                console.log(id);
+        
+            
+
+        try {
+            // Enviar los datos al servidor
+            const response = await fetch(`/add/users/${id}/link/${codeInput}/${nameInput}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ code: codeInput, name: nameInput }),
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log(data.message);
+            } else {
+                const errorData = await response.json();
+                console.error(errorData.error);
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    });
+  </script>
 </body>
 </html>

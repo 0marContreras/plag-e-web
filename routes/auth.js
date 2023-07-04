@@ -23,6 +23,7 @@ router.get('/auth/google/callback', passport.authenticate('google', {
   failureRedirect: '/auth'
 }), (req, res) => {
   res.cookie('session', req.session.passport.user, { signed: true });
+  console.log(req.session.passport.user)
   res.redirect('/home');
 });
 
