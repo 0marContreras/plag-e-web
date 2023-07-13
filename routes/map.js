@@ -13,12 +13,19 @@ router.get('/map', (req, res) => {
 
 
 // Otras rutas relacionadas con el mapa
+let elid = "";
+
+router.post('/send', (req, res) =>{
+  elid = req.body.elaidi
+  console.log(req.body.elaidi)
+  res.redirect('/map')
+});
 
 router.get('/map-data', (req, res) => {
   Robot.aggregate([
     {
       $match: {
-        "code": "000001"
+        "code": elid
       }
     },
     {

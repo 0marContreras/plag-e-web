@@ -98,6 +98,8 @@ app.use('/', mapRoutes);
 app.use('/', homeRoutes);
 app.use('/', addRoutes);
 
+
+
 // Ruta de inicio
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));

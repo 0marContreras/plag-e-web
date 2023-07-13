@@ -41,7 +41,9 @@
 
 	<br>
 
-	<div id="robotCardsContainer" class=" grid grid-cols-2 gap-4 justify-items-center">
+  <center>
+	<div id="robotCardsContainer" class="container mx-auto px-4">
+  </center>
 		<!-- Aquí se generarán las tarjetas de robots dinámicamente -->
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -92,7 +94,7 @@ console.log(robots)
   robots.forEach((robot) => {
     // Generar la tarjeta para cada robot
     const cardDiv = document.createElement("div");
-    cardDiv.className = "ml-8 cardP flex flex-col items-center border border-gray-200 rounded-lg md:flex-row md:max-w-xl";
+    cardDiv.className = " mb-4 cardP flex flex-col items-center border border-gray-200 rounded-lg md:flex-row md:max-w-xl";
 
     const image = document.createElement("img");
     image.className = "ml-4 rounded-full object-cover w-24 h-24 md:h-auto md:w-24";
@@ -107,10 +109,12 @@ console.log(robots)
     robotNameHeading.textContent = robot.Rname;
 
     const form = document.createElement("form");
-    form.action = "/map";
+    form.action = "/send";
+    form.method = "post";
 
     const hiddenInput = document.createElement("input");
     hiddenInput.type = "hidden";
+    hiddenInput.name = "elaidi"
     hiddenInput.value = robot.code;
 
     const trackPositionButton = document.createElement("button");
@@ -119,6 +123,7 @@ console.log(robots)
 
     form.appendChild(hiddenInput);
     form.appendChild(trackPositionButton);
+    form.submit();
     
 
     cardContentDiv.appendChild(robotNameHeading);
