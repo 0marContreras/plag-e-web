@@ -6,85 +6,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="StylesGlobals.css">
     <link rel="stylesheet" type="text/css" href="output.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
     <title>PLAG-E - Map</title>
 
 </head>
 <body>
-              <nav class="bg-white border-gray-200 dark:bg-gray-900">
-            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-              <a href="https://flowbite.com/" class="flex items-center">
-                  <img src="./images/OIG.jpg" class="h-8 mr-3" alt="Plag-e Logo" />
-                  <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Plag-e</span>
-              </a>
-              <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
-                <span class="sr-only">Open main menu</span>
-                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-              </button>
-              <div class="hidden w-full md:block md:w-auto" id="navbar-default">
-                <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-                  <li>
-                    <a href="#" class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500" aria-current="page">Home</a>
-                  </li>
-                  <li>
-                    <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Buy</a>
-                  </li>
-                  <li>
-                    <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Tutorials</a>
-                  </li>
-                  <li>
-                    <a href="#" class="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">Map</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
+
+  <nav class="bg-black border-gray-200">
+	  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+	    <a href="#" class="flex items-center">
+	        <img src="./images/OIG.jpg" class="h-8 mr-3" alt="Plag-e Logo" />
+	        <span class="self-center text-2xl font-semibold whitespace-nowrap text-white">Plag-e</span>
+	    </a>
+	    <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 " aria-controls="navbar-default" aria-expanded="false">
+	      <span class="sr-only">Open main menu</span>
+	      <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+	    </button>
+	    <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+	      <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 rounded-lg  md:flex-row md:space-x-8 md:mt-0 md:border-0">
+	        <li>
+	          <a href="/home" class="block mt-3 py-2 pl-3 pr-4 text-black bg-blue-700 rounded md:bg-transparent md:text-green-500 md:p-0 text-white " aria-current="page">Home</a>
+	        </li>
+	        <li>
+	          <a href="/buy" class="block mt-3 py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-500 md:p-0">Buy</a>
+	        </li>
+	        <li>
+	          <a href="/tutorials" class="block mt-3 py-2 pl-3 pr-4 text-white rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-green-500 md:p-0">Tutorials</a>
+	        </li>
+	        <li>
+	          <a href="/add" class="block px-5 py-3 text-base font-medium text-center bg-green-500 hover:bg-green-600  rounded-lg focus:ring-4 focus:ring-gray-100 text-white">Add PLAG-E</a>
+	        </li>
+          <li>
+            <a href="/logout" class="block px-5 py-3 text-base font-medium text-center bg-red-500 hover:bg-red-600  rounded-lg focus:ring-4 focus:ring-gray-100 text-white">Log out</a>
+          </li>
+	      </ul>
+	    </div>
+	  </div>
+	</nav>
+
+
           <br>
-          <div class="ml-96 cardP flex flex-col items-center border border-gray-200 rounded-lg md:flex-row md:max-w-xl">
-            <img class="ml-4 rounded-full object-cover w-24 h-24 md:h-auto md:w-24" src="./images/OIG.jpg" alt="">
-            <div class="flex flex-col justify-between p-4 leading-normal">
-              <h5 class="mb-2 text-2xl font-bold tracking-tight text-white">Plag-e 1</h5>
-              <p class="mb-3 font-normal text-white">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo dolor voluptatem sint provident aspernatur molestiae porro odit consequuntur quidem! Iusto perferendis unde aut facilis cumque rerum minima pariatur sed atque.</p>
-            
-            <div class="flex">
-              <div>
-                <canvas id="myChart"></canvas>
-              </div>
-              
-              <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-              
-              <script >
-                const ctx = document.getElementById('myChart');
-                new Chart(ctx, {
-                type: 'bar',
-                data: {
-                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                  datasets: [{
-                  label: '# of Votes',
-                  data: [12, 19, 3, 5, 2, 3],
-                  borderWidth: 1
-                  }]
-                },
-                options: {
-                  scales: {
-                  y: {
-                    beginAtZero: true
-                  }
-                  }
-                }
-                });
-              </script>
-              </div>
-            </div>	
-          </div>
-          <br>	
-              <div>
-                <img src="./images/map.jpg" class="relative ml-64 mb-8 w-3/5 h-auto">
-              </div>
-            </div>
-        </div>
-       </div>    
-       
+    
+          <center>
+            <div class="mb-8" id="map"></div>
+            <br>
+  
+            <a href="/home" class=" width-30px px-5 py-3 text-base font-medium text-center bg-green-500 hover:bg-green-600  rounded-lg focus:ring-4 focus:ring-gray-100 text-white">Go back</a>
 
+          </center>
+          
+          <script>
+          
+          </script>
 
+       <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+       integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+       crossorigin=""></script>
+
+       <script>
+          fetch('/map-data')
+              .then(response => response.json())
+              .then(data => {
+                // Acceder a los datos y realizar las acciones deseadas
+                var location = data;
+
+                const objx = JSON.parse(location.x);
+                const objy = JSON.parse(location.y);
+
+                  var map = L.map('map').setView([objx, objy ], 13);
+                  var marker = L.marker([objx, objy]).addTo(map);
+                  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                  maxZoom: 19,
+                  attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+                  }).addTo(map);
+
+              })
+              .catch(error => {
+                console.error(error);
+              });
+        
+       </script>
 </body>
 </html>

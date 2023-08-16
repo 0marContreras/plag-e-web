@@ -2,14 +2,30 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const User = require('./models/user');
-const path = require("path");
 const cookieParser = require('cookie-parser');
+const path = require("path");
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+
+//rutas
+const router = express.Router();
+const authRoutes = require('./routes/auth');
+const tutorialsRoutes = require('./routes/tutorials');
+const buyRoutes = require('./routes/buy');
+const mapRoutes = require('./routes/map');
+const homeRoutes = require('./routes/home');
+const addRoutes = require('./routes/add');
+
+//esquemas de mongo
+const User = require('./models/user');
+const Robot = require('./models/robots');
+
 const port = 3000;
+require('dotenv').config();
+
+
 
 // Configuración de Mongoose
-mongoose.connect('mongodb+srv://omarcontreras:Omar151003@omarcontreras.g6y4rxx.mongodb.net/plage', {
+mongoose.connect(process.env.DB_CONN, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 }).then(() => {
@@ -20,43 +36,51 @@ mongoose.connect('mongodb+srv://omarcontreras:Omar151003@omarcontreras.g6y4rxx.m
 
 // Configuración de la sesión y autenticación de Passport
 passport.use(new GoogleStrategy({
-    clientID: "298722206986-4jo87fbqtcffdl88t1qq1sa40b0o18os.apps.googleusercontent.com",
-    clientSecret: "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",
+    clientID: process.env.GOOGLE_KEY,
+    clientSecret: process.env.GOOGLE_SECRET,
     callbackURL: '/auth/google/callback'
   },
   async (accessToken, refreshToken, profile, done) => {
     // Verificar si el usuario ya existe en la base de datos
-    const existingUser = await User.findOne({ googleId: profile.id });
+    const existingUser = await User.findOne({ userId: profile.id });
     if (existingUser) {
       return done(null, existingUser);
     }
 
     // Crear un nuevo usuario si no existe
     const newUser = new User({
-      googleId: profile.id,
-      displayName: profile.displayName
+      userId: profile.id,
+      displayName: profile.displayName,
+      robots: []
     });
     await newUser.save();
     done(null, newUser);
   }
 ));
 
-passport.serializeUser((user, done) => {
-  done(null, user.id);
+passport.serializeUser(function(user, cb) {
+  process.nextTick(function() {
+    return cb(null, {
+      id: user.userId
+    });
+  });
 });
 
-passport.deserializeUser(async (id, done) => {
-  const user = await User.findById(id);
-  done(null, user);
+passport.deserializeUser(function(user, cb) {
+  process.nextTick(function() {
+    return cb(null, user);
+  });
 });
 
 const app = express();
+app.use(express.text());
+app.use(express.json());
 
 // Configuración de Express
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(cookieParser('secret-key')); // Configuración de cookie-parser con la clave secreta
+app.use(cookieParser("secret"));
 app.use(session({
   secret: 'secret-key',
   resave: false,
@@ -65,52 +89,28 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 // Rutas
+app.use('/', authRoutes);
+app.use('/', tutorialsRoutes);
+app.use('/', buyRoutes);
+app.use('/', mapRoutes);
+app.use('/', homeRoutes);
+app.use('/', addRoutes);
+
+
+
+// Ruta de inicio
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.get('/buy', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'buy.html'));
-});
-
-app.get('/auth', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'auth.html'));
-});
-
-app.get('/home', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'home.html'));
-});
-
-app.get('/map', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'map.html'));
-});
-
-app.get('/tutorials', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'tutorials.html'));
-});
-
-// Ruta de inicio de sesión con Google
-app.get('/auth/google', passport.authenticate('google', {
-  scope: ['profile']
-}));
-
-// Ruta de callback de Google para el inicio de sesión
-app.get('/auth/google/callback', passport.authenticate('google', {
-  failureRedirect: '/auth'
-}), (req, res) => {
-  // Configurar la cookie con la sesión de Google
-  res.cookie('session', req.session.passport.user, { signed: true });
-  res.redirect('/home');
-});
-
 // Ruta de cierre de sesión
 app.get('/logout', (req, res) => {
-  //req.logout();
-  //req.session.destroy();
   res.clearCookie('session'); // Eliminar la cookie 'session'
   res.redirect('/');
 });
+
 
 app.listen(port, () => {
   console.log(`Servidor en funcionamiento en http://localhost:${port}`);
